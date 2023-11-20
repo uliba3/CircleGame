@@ -2,7 +2,6 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-
 let dotSpeed = 2;
 
 let player = {
@@ -17,6 +16,7 @@ let player = {
 let circles = [];
 
 let score = 0;
+let condition = "dotUpdate";
 
 // To get the score from localStorage
 let highestScore = parseInt(localStorage.getItem('highestScore'));
@@ -120,10 +120,10 @@ function draw() {
 document.addEventListener('keydown', keyDownHandler, false);
 document.addEventListener('mousedown', mouseDownHandler, false);
 
-let condition = "dotUpdate";
+
 
 function mouseDownHandler(e) {
-    console.log(e);
+    console.log("before", e, condition);
     if (e.button === 0) {
         if(condition == "circleUpdate"){
             circles.push({
@@ -142,14 +142,17 @@ function mouseDownHandler(e) {
             };
             playerSpawn();
             condition = "dotUpdate";
-        }else{
+        }else if(condition == "dotUpdate"){
             condition = "circleUpdate";
+        }else if(condition == "gameOver"){
+            reset();
         }
     }
+    console.log("after", e, condition);
 }
 
 function keyDownHandler(e) {
-    console.log(e);
+    console.log("before", e, condition);
     if (e.key === ' '|| e.key === 'Enter'||e.button === 0) {
         if(condition == "circleUpdate"){
             circles.push({
@@ -168,18 +171,23 @@ function keyDownHandler(e) {
             };
             playerSpawn();
             condition = "dotUpdate";
-        }else{
+        }else if(condition == "dotUpdate"){
             condition = "circleUpdate";
+        }else if(condition == "gameOver"){
+            reset();
         }
     }
+    console.log("after", e, condition);
 }
 
 function gameOver() {
-    alert("Game Over");
     // To set the score in localStorage
     localStorage.setItem('highestScore', Math.max(score, highestScore));
     highestScore = Math.max(score, highestScore);
-    reset();
+    condition = "gameStop";
+    setTimeout(function(){ 
+        condition = "gameOver";
+    }, 1000);
 }
 
 function reset() {
