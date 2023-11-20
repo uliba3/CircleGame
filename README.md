@@ -1,6 +1,8 @@
 # Circle Game
-![Circle Game](assets/circleGame.gif)
-![Circle Game Screenshot](assets/circleGameScreenShot.png)
+<div style="display: flex; justify-content: space-between;">
+  <img src="assets/circleGame.gif" alt="Circle Game" width="400">
+  <img src="assets/circleGameScreenShot.png" alt="Circle Game Screenshot" width="400">
+</div>
 
 Welcome to the Circle Game! Dive into the gaming experience [here](https://uliba3.github.io/CircleGame/).
 
